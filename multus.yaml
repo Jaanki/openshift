@@ -1,0 +1,131 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    openshift.io/scc: privileged
+  creationTimestamp: 2019-03-22T15:53:26Z
+  generateName: kube-multus-ds-amd64-
+  labels:
+    app: multus
+    component: network
+    controller-revision-hash: "3946159904"
+    pod-template-generation: "1"
+  name: kube-multus-ds-amd64-8689f
+  namespace: openshift-sdn
+  ownerReferences:
+  - apiVersion: apps/v1
+    blockOwnerDeletion: true
+    controller: true
+    kind: DaemonSet
+    name: kube-multus-ds-amd64
+    uid: 7993367d-4b01-11e9-81d9-fa163eab91b2
+  resourceVersion: "504936"
+  selfLink: /api/v1/namespaces/openshift-sdn/pods/kube-multus-ds-amd64-8689f
+  uid: a166b372-4cba-11e9-81d9-fa163eab91b2
+spec:
+  containers:
+  - args:
+    - --multus-conf-file=/etc/multus-conf/70-multus.conf
+    command:
+    - /entrypoint.sh
+    image: nfvpe/multus:snapshot
+    imagePullPolicy: IfNotPresent
+    name: kube-multus
+    resources:
+      limits:
+        cpu: 100m
+        memory: 50Mi
+      requests:
+        cpu: 100m
+        memory: 50Mi
+    securityContext:
+      privileged: true
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /host/etc/cni/net.d
+      name: cni
+    - mountPath: /host/opt/cni/bin
+      name: cnibin
+    - mountPath: /etc/multus-conf/
+      name: multus-cfg
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: multus-token-zvm5x
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  hostNetwork: true
+  imagePullSecrets:
+  - name: multus-dockercfg-l645n
+  nodeName: okd-a4a55.rdocloud
+  priority: 2000001000
+  priorityClassName: system-node-critical
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: multus
+  serviceAccountName: multus
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoSchedule
+    key: node.kubernetes.io/memory-pressure
+    operator: Exists
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+  - effect: NoSchedule
+    key: node.kubernetes.io/disk-pressure
+    operator: Exists
+  volumes:
+  - hostPath:
+      path: /etc/cni/net.d
+      type: ""
+    name: cni
+  - hostPath:
+      path: /opt/cni/bin
+      type: ""
+    name: cnibin
+  - configMap:
+      defaultMode: 420
+      name: multus-cni-config
+    name: multus-cfg
+  - name: multus-token-zvm5x
+    secret:
+      defaultMode: 420
+      secretName: multus-token-zvm5x
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: 2019-03-22T15:53:26Z
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: 2019-03-22T15:53:30Z
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: null
+    status: "True"
+    type: ContainersReady
+  - lastProbeTime: null
+    lastTransitionTime: 2019-03-22T15:53:26Z
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - containerID: docker://6c266260f63a3a70c7351f7de2747646e91d543160a8592dddafd9f3f963a55d
+    image: docker.io/nfvpe/multus:snapshot
+    imageID: docker-pullable://docker.io/nfvpe/multus@sha256:4fb6fd5230d956e6c826d081364f0bcbd1e998cfc3e8d7df55a85ee1aef19cc7
+    lastState: {}
+    name: kube-multus
+    ready: true
+    restartCount: 0
+    state:
+      running:
+        startedAt: 2019-03-22T15:53:28Z
+  hostIP: 10.200.0.26
+  phase: Running
+  podIP: 10.200.0.26
+  qosClass: Guaranteed
+  startTime: 2019-03-22T15:53:26Z
