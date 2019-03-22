@@ -1,4 +1,4 @@
-# I am trying using Multus with Cilium and openshift-sdn. This repo includes collection of scripts/hacks around Openshift
+I am trying using Multus with Cilium and openshift-sdn. This repo includes collection of scripts/hacks around Openshift
 I did to get a working deployment. Files in this repo are customised manifests for k8s resources.
  
 # THIS IS A WORK IN PROGRESS.
@@ -39,5 +39,15 @@ kube-system                         coredns-55f86bf584-l9lbw                    
 If you don't have coredns pods, start them by running
 $ kubectl apply -f https://storage.googleapis.com/kubernetes-the-hard-way/coredns.yaml
 
-Create a network definition for Cilium as defined in 
- 
+Create a network attachement definition for Cilium as defined in cilium_nad.yaml
+$ kubectl apply -f cilium_nad.yaml
+
+By this time, you should have a setup where openshift-sdn is a primary CNI and CIlium is secondary CNI achieved using Multus.
+
+Lets try to spawn a pod with 2 itnerfaces now.
+$ kubectl apply -f pod.yaml
+
+For me, the pod is not spawned. Its stuck in containercreate state.
+default                             samplepod                                      0/1       ContainerCreating   0          13m
+
+journald logs show error as detailed in https://paste.fedoraproject.org/paste/zQQsjYOXjauuoH0bcmHCEg
