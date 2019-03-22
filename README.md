@@ -16,10 +16,10 @@ Once this is done, edit /etc/cni/net.d/70-multus.conf to match with the file in 
 And then kubectl apply -f multus.yaml from this repo.  
  
 There should be 3 pods running in 'openshift-sdn'project  
-$ kubectl get pods --all-namespaces  
-openshift-sdn                       kube-multus-ds-amd64-tv2r5                     1/1       Running             0          1d  
-openshift-sdn                       ovs-8mlkz                                      1/1       Running             1          2d  
-openshift-sdn                       sdn-zjhnj                                      1/1       Running             1          2d  
+> $ kubectl get pods --all-namespaces  
+> openshift-sdn                       kube-multus-ds-amd64-tv2r5                     1/1       Running             0          1d  
+> openshift-sdn                       ovs-8mlkz                                      1/1       Running             1          2d  
+> openshift-sdn                       sdn-zjhnj                                      1/1       Running             1          2d  
 
  
 Once multus is installed, install Cilium using 'cilium.yaml' file from this repo  
